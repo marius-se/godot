@@ -294,7 +294,7 @@ void finalize_theme_db() {
 	theme_db = nullptr;
 }
 
-//#define DEBUG_INIT
+#define DEBUG_INIT
 #ifdef DEBUG_INIT
 #define MAIN_PRINT(m_txt) print_line(m_txt)
 #else
@@ -434,6 +434,7 @@ void Main::print_help(const char *p_binary) {
 // The order is the same as in `Main::setup()`, only core and some editor types
 // are initialized here. This also combines `Main::setup2()` initialization.
 Error Main::test_setup() {
+	StringName::setup();
 	OS::get_singleton()->initialize();
 
 	engine = memnew(Engine);
@@ -634,6 +635,7 @@ int Main::test_entrypoint(int argc, char *argv[], bool &tests_need_run) {
  */
 
 Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_phase) {
+	StringName::setup();
 	OS::get_singleton()->initialize();
 
 	engine = memnew(Engine);
@@ -672,10 +674,14 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 	bool adding_user_args = false;
 	List<String> platform_args = OS::get_singleton()->get_cmdline_platform_args();
 
+	printf("1.\n");
+
 	// Add command line arguments.
 	for (int i = 0; i < argc; i++) {
 		args.push_back(String::utf8(argv[i]));
 	}
+
+	printf("2.\n");
 
 	// Add arguments received from macOS LaunchService (URL schemas, file associations).
 	for (const String &arg : platform_args) {
@@ -683,6 +689,8 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 	}
 
 	List<String>::Element *I = args.front();
+
+	printf("3.\n");
 
 	while (I) {
 		I->get() = unescape_cmdline(I->get().strip_edges());
@@ -709,6 +717,8 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 	String default_renderer = "";
 	String default_renderer_mobile = "";
 	String renderer_hints = "";
+
+	printf("4.\n");
 
 	packed_data = PackedData::get_singleton();
 	if (!packed_data) {
@@ -763,6 +773,8 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 			}
 		}
 #endif
+
+		printf("5.\n");
 
 		if (adding_user_args) {
 			user_args.push_back(I->get());
@@ -1636,6 +1648,8 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 		}
 	}
 
+	printf("6.\n");
+
 	default_renderer = renderer_hints.get_slice(",", 0);
 	GLOBAL_DEF_RST_BASIC("rendering/renderer/rendering_method", default_renderer);
 	GLOBAL_DEF_RST_BASIC("rendering/renderer/rendering_method.mobile", default_renderer_mobile);
@@ -1658,6 +1672,8 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 			rendering_driver = GLOBAL_GET("rendering/rendering_device/driver");
 		}
 	}
+
+	printf("7.\n");
 
 	// note this is the desired rendering driver, it doesn't mean we will get it.
 	// TODO - make sure this is updated in the case of fallbacks, so that the user interface
@@ -1746,6 +1762,8 @@ Error Main::setup(const char *execpath, int argc, char *argv[], bool p_second_ph
 		// If all else failed it would be the headless server.
 		display_driver_idx = 0;
 	}
+
+	printf("8.\n");
 
 	// Store this in a globally accessible place, so we can retrieve the rendering drivers
 	// list from the display driver for the editor UI.

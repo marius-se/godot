@@ -42,8 +42,8 @@
 
 #define kRenderingFrequency 60
 
-extern int gargc;
-extern char **gargv;
+/* extern */ int gargc;
+/* extern */ char **gargv;
 
 extern int ios_main(int, char **, String, String);
 extern void ios_finish();
@@ -71,6 +71,7 @@ static ViewController *mainViewController = nil;
 	paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 	NSString *cacheDirectory = [paths objectAtIndex:0];
 
+	// THIS IS THE ENTRYPOINT FOR THE GODOT ENGINE
 	int err = ios_main(gargc, gargv, String::utf8([documentsDirectory UTF8String]), String::utf8([cacheDirectory UTF8String]));
 
 	if (err != 0) {

@@ -87,10 +87,12 @@ void register_dynamic_symbol(char *name, void *address) {
 }
 
 OS_IOS *OS_IOS::get_singleton() {
-	return (OS_IOS *)OS::get_singleton();
+	printf("*OS_IOS::get_singleton()\n");
+	return (OS_IOS *)OS::get_singleton(); // THIS IS JUST CASTED TO OS_IOS. OS::get_singleton() IS THE SINGLE SOURCE OF TRUTH
 }
 
 OS_IOS::OS_IOS(String p_data_dir, String p_cache_dir) {
+	printf("OS_IOS::OS_IOS(String p_data_dir, String p_cache_dir)\n");
 	for (int i = 0; i < ios_init_callbacks_count; ++i) {
 		ios_init_callbacks[i]();
 	}
@@ -131,18 +133,25 @@ void OS_IOS::alert(const String &p_alert, const String &p_title) {
 void OS_IOS::initialize_core() {
 	OS_Unix::initialize_core();
 
+	printf("Just before set_user_data_dir(user_data_dir)\n");
 	set_user_data_dir(user_data_dir);
+	printf("set_user_data_dir(user_data_dir)\n");
 }
 
 void OS_IOS::initialize() {
+	printf("OS_IOS::initialize()\n");
 	initialize_core();
 }
 
 void OS_IOS::initialize_modules() {
+	printf("initialize_modules\n");
 	ios = memnew(iOS);
+	printf("allocated memoryy\n");
 	Engine::get_singleton()->add_singleton(Engine::Singleton("iOS", ios));
+	printf("added engine singleton\n");
 
 	joypad_ios = memnew(JoypadIOS);
+	printf("allocated joypad\n");
 }
 
 void OS_IOS::deinitialize_modules() {

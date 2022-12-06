@@ -7,6 +7,7 @@ ios_lib = [
     "os_ios.mm",
     "main.m",
     "app_delegate.mm",
+    "wrapper.mm",
     "view_controller.mm",
     "ios.mm",
     "vulkan_context_ios.mm",

@@ -38,6 +38,7 @@
 
 static OS_IOS *os = nullptr;
 
+// extern "C" {
 int add_path(int, char **);
 int add_cmdline(int, char **);
 int ios_main(int, char **, String);
@@ -77,11 +78,15 @@ int add_cmdline(int p_argc, char **p_args) {
 int ios_main(int argc, char **argv, String data_dir, String cache_dir) {
 	size_t len = strlen(argv[0]);
 
+	printf("Reached main with: \n");
+
 	while (len--) {
 		if (argv[0][len] == '/') {
 			break;
 		}
 	}
+
+	printf("1.\n");
 
 	if (len >= 0) {
 		char path[512];
@@ -119,6 +124,7 @@ int ios_main(int argc, char **argv, String data_dir, String cache_dir) {
 		return 255;
 	}
 
+	printf("Initializing modules!\n");
 	os->initialize_modules();
 
 	return 0;
@@ -129,3 +135,5 @@ void ios_finish() {
 	Main::cleanup();
 	delete os;
 }
+
+// }

@@ -36,6 +36,9 @@
 int gargc;
 char **gargv;
 
+
+// NO THIS IS MAIN FUCKING ENTRYPOINT
+
 int main(int argc, char *argv[]) {
 #if defined(VULKAN_ENABLED)
 	//MoltenVK - enable full component swizzling support
@@ -45,6 +48,9 @@ int main(int argc, char *argv[]) {
 	printf("*********** main.m\n");
 	gargc = argc;
 	gargv = argv;
+
+	printf("gargc: %d\n", gargc);
+	printf("gargv: %s\n", gargv);
 
 	printf("running app main\n");
 	@autoreleasepool {
