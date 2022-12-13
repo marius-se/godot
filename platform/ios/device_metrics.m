@@ -114,6 +114,7 @@
 			@"iPhone11,8",
 			@"iPhone12,1",
 			@"iPhone12,8",
+			@"iPhone14,6", // iPhone SE 3rd gen
 			@"iPad4,4",
 			@"iPad4,5",
 			@"iPad4,6",
@@ -145,7 +146,23 @@
 			@"iPhone11,6",
 			@"iPhone12,3",
 			@"iPhone12,5",
+			@"iPhone13,4", // iPhone 12 Pro Max
+			@"iPhone14,3", // iPhone 13 Pro Max
+			@"iPhone14,8", // iPhone 14 Plus
 		] : @458,
+		@[
+			@"iPhone13,2", // iPhone 12
+			@"iPhone13,3", // iPhone 12 Pro
+			@"iPhone14,2", // iPhone 13 Pro
+			@"iPhone14,5", // iPhone 13
+			@"iPhone14,7", // iPhone 14
+			@"iPhone15,2", // iPhone 14 Pro
+			@"iPhone15,3", // iPhone 14 Pro Max
+		] : @460,
+		@[
+			@"iPhone13,1", // iPhone 12 Mini
+			@"iPhone14,4" // iPhone 13 Mini
+		] : @476
 	};
 }
 
